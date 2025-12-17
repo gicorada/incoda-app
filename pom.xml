@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.gicorada</groupId>
     <artifactId>incoda-app</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
 
     <properties>
         <compiler-plugin.version>3.14.1</compiler-plugin.version>
@@ -26,7 +26,7 @@
         <developerConnection>scm:git:ssh://git@github.com/gicorada/incoda-app.git</developerConnection>
         <!-- URL web leggibile -->
         <url>https://github.com/gicorada/incoda-app</url>
-      <tag>incoda-app-1.0.0</tag>
+      <tag>HEAD</tag>
   </scm>
 
 
