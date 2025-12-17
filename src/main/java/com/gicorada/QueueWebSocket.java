@@ -12,6 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @ServerEndpoint("/ws/queue")
 public class QueueWebSocket {
     public static Set<Session> sessions = ConcurrentHashMap.newKeySet();
+    // TODO è possibile intercettare called e left di altri tenant, da implementare divisione per subset
 
     @OnOpen
     public void onOpen(Session session) {
@@ -23,11 +24,21 @@ public class QueueWebSocket {
         sessions.remove(session);
     }
 
-    public static void notifyUser(String userId) {
+    public static void notifyUserCalled(String tenant, String userId) {
         sessions.forEach(s -> {
             try {
-                s.getBasicRemote().sendText("{\"type\":\"called\",\"id\":\"" + userId + "\"}");
+                String announce = "{\"type\":\"called\",\"tenant\":\"" + tenant + "\",\"id\":\"" + userId + "\"}";
+                s.getBasicRemote().sendText(announce);
             } catch (IOException e) {e.printStackTrace();}
+        });
+    }
+
+    public static void notifyUserLeft(String tenant) {
+        sessions.forEach(s -> {
+            try {
+                String announce = "{\"type\":\"left\",\"tenant\":\"" + tenant + "\"}";
+                s.getBasicRemote().sendText(announce);
+            } catch(IOException e) {e.printStackTrace();}
         });
     }
 }

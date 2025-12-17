@@ -3,12 +3,8 @@ package com.gicorada.resource;
 import com.gicorada.QueueEntry;
 import com.gicorada.QueueException;
 import com.gicorada.service.QueueService;
-import com.gicorada.QueueWebSocket;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 
 import java.util.List;
@@ -21,20 +17,18 @@ public class AdminResource {
     QueueService service;
 
     @POST
-    @Path("/next")
-    public QueueEntry next() {
-        if(!service.hasNext()) {
+    @Path("/{tenant}/next")
+    public QueueEntry next(@PathParam("tenant") String tenant) {
+        if(!service.hasNext(tenant)) {
             throw new QueueException("QueueEmpty", "Non ci sono più persone in coda", 400);
         }
 
-        var next = service.next();
-        QueueWebSocket.notifyUser(next.id());
-        return next;
+        return service.next(tenant);
     }
 
     @GET
-    @Path("/queue")
-    public List<QueueEntry> queue() {
-        return service.all();
+    @Path("/{tenant}/queue/")
+    public List<QueueEntry> queue(@PathParam("tenant") String tenant) {
+        return service.all(tenant);
     }
 }
