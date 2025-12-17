@@ -23,7 +23,7 @@
         <!-- URL leggibile da chiunque -->
         <connection>scm:git:git://github.com/gicorada/incoda-app.git</connection>
         <!-- URL per sviluppatori con permessi push -->
-        <developerConnection>scm:git:ssh://git@github.com:gicorada/incoda-app.git</developerConnection>
+        <developerConnection>scm:git:ssh://git@github.com/gicorada/incoda-app.git</developerConnection>
         <!-- URL web leggibile -->
         <url>https://github.com/gicorada/incoda-app</url>
     </scm>
